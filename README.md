@@ -302,6 +302,62 @@ Full REST API for programmatic management of watches, tags, notifications and mo
 - **[Interactive API Documentation](https://changedetection.io/docs/api_v1/index.html)** - Complete API reference with live testing
 - **[OpenAPI Specification](docs/api-spec.yaml)** - Generate SDKs for any programming language
 
+## Troubleshooting
+
+### Common Issues and Solutions
+
+#### Watch is not checking / no automatic checks running
+- **Cause**: Scheduler may be paused or misconfigured.
+- **Fix**: Go to the watch edit page and verify the schedule is set (e.g., "every 1 hour"). Check that the global scheduler is not paused from the settings.
+
+#### Notifications not being sent
+- **Cause**: Invalid notification URL format or Apprise integration error.
+- **Fix**: Navigate to the watch → Edit → Notifications. Test the notification URL directly. Ensure the target service (Discord, Slack, Telegram, etc.) is reachable from your server. Check the logs (Settings → Log) for Apprise-specific error messages.
+
+#### Page returns blank or empty content
+- **Cause**: Site requires JavaScript rendering (static fetcher only sees initial HTML).
+- **Fix**: Enable Playwright/Sockpuppet browser fetcher in the watch settings under "Fetch method". This runs the page in a real Chrome browser.
+
+#### Website behind login not detecting changes
+- **Cause**: Authentication not configured or session expired.
+- **Fix**: Use Browser Steps to log in before monitoring. Configure "Wait for element" to ensure the page is fully loaded. For session expiry issues, increase check frequency or use cookies-based auth.
+
+#### "Error: Filters produced no data" / no diff output
+- **Cause**: CSS selector, XPath, or JSONPath filter is too strict or incorrect.
+- **Fix**: Use the Visual Selector tool (Playwright fetcher required) to preview what the filter captures. Test your filter expression with a small excerpt. Ensure the element exists in the DOM at check time.
+
+#### High CPU / memory usage
+- **Cause**: Too many watches with frequent checks, or large history storage.
+- **Fix**: Reduce check frequency for non-critical watches. Limit history in Settings → General → "Maximum history per watch". Consider using lightweight JSON/API checks instead of full HTML rendering.
+
+#### Playwright / browser automation fails
+- **Cause**: Missing browser dependencies, display issues in headless mode, or browser crashes.
+- **Fix**:
+  - On Linux: install system dependencies (`playwright install-deps`)
+  - Ensure `$DISPLAY` is set or use headless mode (`--headless` flag)
+  - Update Playwright: `pip install playwright && playwright install chromium`
+  - Check logs for specific crash messages (OOM, GPU errors)
+
+#### Docker container exits or restarts constantly
+- **Cause**: Volume permission issues, missing base image compatibility, or OOM (out of memory).
+- **Fix**: Verify the volume mount path exists and is writable. Ensure enough memory is allocated to Docker. Check logs with `docker logs changedetection.io`.
+
+#### "Access denied" or 403 errors on target website
+- **Cause**: Site blocking bots or your server IP.
+- **Fix**: Try using a different fetcher (e.g., Playwright with a common User-Agent). Use proxy rotation via Settings → Proxy. Bright Data or Oxylabs proxies are supported natively.
+
+#### JSON API monitoring returns parse errors
+- **Cause**: API response is not valid JSON, or encoding issues.
+- **Fix**: Enable "Raw" mode or check if the API requires specific headers (Authorization, Accept). Try adding `content-type: application/json` in the custom headers. If the response contains BOM or unusual encoding, use jq filter to normalize.
+
+#### Import fails / CSV/Excel import errors
+- **Cause**: Malformed file, unsupported column headers, or duplicate entries.
+- **Fix**: Ensure the file is `.xlsx` format with proper headers (URL, Tags, etc.). Remove duplicate rows. Check for special characters in URL fields.
+
+#### Slow response from UI / timeouts
+- **Cause**: Large database file (SQLite), too many concurrent workers, or I/O bottleneck.
+- **Fix**: Periodically restart the application to clear SQLite WAL growth. Limit concurrent fetch workers in Settings → Performance. Move the datastore to SSD-backed storage if on spinning disk.
+
 ## Support us
 
 Do you use changedetection.io to make money? does it save you time or money? Does it make your life easier? less stressful? Remember, we write this software when we should be doing actual paid work, we have to buy food and pay rent just like you.
