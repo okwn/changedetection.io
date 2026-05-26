@@ -1,9 +1,23 @@
-Contributing is always welcome!
+# Contributing to changedetection.io
 
-I am no professional flask developer, if you know a better way that something can be done, please let me know!
+Thank you for your interest in contributing!
 
-Otherwise, it's always best to PR into the `master` branch.
+## How to Contribute
 
-Please be sure that all new functionality has a matching test!
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Make your changes
+4. Run tests if applicable
+5. Commit your changes
+6. Push to your fork and open a pull request
 
-Use `pytest` to validate/test, you can run the existing tests as `pytest tests/test_notification.py` for example
+## Guidelines
+
+- Keep changes focused and minimal
+- Follow existing code style
+- Test your changes before submitting
+- Be descriptive in commit messages
+
+## Questions?
+
+Feel free to open an issue for any questions or discussions.
