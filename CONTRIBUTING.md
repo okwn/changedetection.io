@@ -7,3 +7,6 @@ Otherwise, it's always best to PR into the `master` branch.
 Please be sure that all new functionality has a matching test!
 
 Use `pytest` to validate/test, you can run the existing tests as `pytest tests/test_notification.py` for example
+
+## Contributors
+- Documentation improvements (2026)
