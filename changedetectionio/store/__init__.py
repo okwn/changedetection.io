@@ -580,9 +580,9 @@ class ChangeDetectionStore(DatastoreUpdatesMixin, FileSavingDataStore):
 
     @property
     def data(self):
-        # Re #152, Return env base_url if not overriden
+        # Re #152, Return env base_url if not overridden
         # Re #148 - Some people have just {{ base_url }} in the body or title, but this may break some notification services
-        #           like 'Join', so it's always best to atleast set something obvious so that they are not broken.
+        #           like 'Join', so it's always best to at least set something obvious so that they are not broken.
 
         active_base_url = BASE_URL_NOT_SET_TEXT
         if self.__data['settings']['application'].get('base_url'):

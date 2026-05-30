@@ -1099,6 +1099,12 @@ msgid "characters — currently enforcing: %(limit)s"
 msgstr ""
 
 #: changedetectionio/blueprint/settings/templates/settings_llm_tab.html
+msgid ""
+"tokens — skips AI evaluation on a watch once its usage within the current period (monthly) hits this cap (0 = "
+"unlimited)"
+msgstr ""
+
+#: changedetectionio/blueprint/settings/templates/settings_llm_tab.html
 msgid "No AI usage recorded yet."
 msgstr ""
 
@@ -2952,7 +2958,6 @@ msgstr "匹配以下全部"
 msgid "Match any of the following"
 msgstr "匹配以下任意"
 
-#. dennis-ignore: W303 - False positive caused by <title>. https://github.com/mozilla/dennis/issues/213
 #: changedetectionio/forms.py
 msgid "Use page <title> in list"
 msgstr "列表中使用页面 <title>"
@@ -3052,7 +3057,6 @@ msgstr "启用实时界面更新"
 msgid "Favicons Enabled"
 msgstr "启用站点图标"
 
-#. dennis-ignore: W303 - False positive caused by <title>. https://github.com/mozilla/dennis/issues/213
 #: changedetectionio/forms.py
 msgid "Use page <title> in watch overview list"
 msgstr "在监控概览列表中使用页面 <title>"
@@ -3165,12 +3169,8 @@ msgstr ""
 msgid "Default AI Change Summary prompt"
 msgstr ""
 
-#: changedetectionio/forms.py
-msgid "Max tokens per check"
-msgstr ""
-
-#: changedetectionio/forms.py
-msgid "Max cumulative tokens (per watch)"
+#: changedetectionio/blueprint/settings/templates/settings_llm_tab.html changedetectionio/forms.py
+msgid "Max tokens per watch per period"
 msgstr ""
 
 #: changedetectionio/forms.py
@@ -3450,7 +3450,6 @@ msgstr "被监控的 URL。"
 msgid "The UUID of the watch."
 msgstr "监视器的UUID。"
 
-#. dennis-ignore: W303 - False positive caused by <title>. https://github.com/mozilla/dennis/issues/213
 #: changedetectionio/templates/_common_fields.html
 msgid "The page title of the watch, uses <title> if not set, falls back to URL"
 msgstr "监控项的页面标题，未设置时使用 <title>，否则回退为 URL"
